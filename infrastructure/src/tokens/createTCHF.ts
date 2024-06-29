@@ -113,10 +113,7 @@ async function createPayment(client: Client, wallet: Wallet, settings: Payment) 
   }
 }
 
-function hexToBase58(hexString: string): string {
-  const hexBuffer = Buffer.from(hexString, "hex");
-  return bs58.default.encode(hexBuffer);
-}
+
 
 async function main() {
   let hot_wallet: Wallet;

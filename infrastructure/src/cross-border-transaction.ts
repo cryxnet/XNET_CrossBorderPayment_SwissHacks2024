@@ -58,13 +58,13 @@ const amountToSend = '10'; // 10 TCHF
       Amount: {
         currency: destinationCurrency,
         value: amountToSend,
-        issuer: recipientAddress
+        issuer: TEUR_ISSUER_WALLET_ADDRESS
       },
       Destination: recipientAddress,
       SendMax: {
         currency: sourceCurrency,
         value: amountToSend,
-        issuer: TCHF_CURRENCY_CODE
+        issuer: TCHF_ISSUER_WALLET_ADDRESS
       },
       Paths: [
         [
