@@ -1,6 +1,6 @@
-import { Client, Wallet, TrustSet, Payment, PathFindRequest } from 'xrpl';
+import { Client, Wallet, TrustSet, Payment, OfferCreate } from 'xrpl';
 import { BOB_WALLET_ADDRESS, STEF_WALLET_ADDRESS, BOB_WALLET_SECRET, STEF_WALLET_SECRET } from './wallets';
-import { TCHF_CURRENCY_CODE, TCHF_ISSUER_WALLET_ADDRESS, TEUR_CURRENCY_CODE , TEUR_ISSUER_WALLET_ADDRESS} from './tokens';
+import { TCHF_CURRENCY_CODE, TCHF_ISSUER_WALLET_ADDRESS, TEUR_CURRENCY_CODE , TEUR_ISSUER_WALLET_ADDRESS } from './tokens';
 
 const client = new Client('wss://s.altnet.rippletest.net:51233');
 const senderSecret = BOB_WALLET_SECRET;
@@ -10,8 +10,6 @@ const recipientAddress = STEF_WALLET_ADDRESS;
 const senderWallet = Wallet.fromSeed(senderSecret);
 const recipientWallet = Wallet.fromSeed(recipientSecret);
 
-const sourceCurrency = TCHF_CURRENCY_CODE;
-const destinationCurrency = TEUR_CURRENCY_CODE;
 const amountToSend = '1'; // 1 TCHF
 
 (async () => {
@@ -22,7 +20,7 @@ const amountToSend = '1'; // 1 TCHF
     TransactionType: 'TrustSet',
     Account: recipientAddress,
     LimitAmount: {
-      currency: sourceCurrency,
+      currency: TCHF_CURRENCY_CODE,
       issuer: TCHF_ISSUER_WALLET_ADDRESS,
       value: '1000000' // Set a high enough limit
     }
@@ -33,7 +31,7 @@ const amountToSend = '1'; // 1 TCHF
     TransactionType: 'TrustSet',
     Account: recipientAddress,
     LimitAmount: {
-      currency: destinationCurrency,
+      currency: TEUR_CURRENCY_CODE,
       issuer: TEUR_ISSUER_WALLET_ADDRESS,
       value: '1000000' // Set a high enough limit
     }
@@ -50,56 +48,61 @@ const amountToSend = '1'; // 1 TCHF
 
   console.log('Trust lines set for TCHF and TEUR.');
 
-  // Use path_find to find a viable path for the payment
-  const pathFindRequest: PathFindRequest = {
-    command: "path_find",
-    subcommand: "create",
-    source_account: senderAddress,
-    destination_account: recipientAddress,
-    destination_amount: {
-      currency: destinationCurrency,
-      value: amountToSend,
-      issuer: TEUR_ISSUER_WALLET_ADDRESS
-    }
+  // 1. Swap TCHF to XRP
+  const offerCreateTCHFtoXRP: OfferCreate = {
+    TransactionType: 'OfferCreate',
+    Account: senderAddress,
+    TakerGets: {
+      currency: TCHF_CURRENCY_CODE,
+      issuer: TCHF_ISSUER_WALLET_ADDRESS,
+      value: amountToSend
+    },
+    TakerPays: (1 * 1000000).toString(), // Specify the amount of XRP to receive (in drops)
+    Flags: 0x00080000 // tfImmediateOrCancel
   };
 
-  const pathFindResponse = await client.request(pathFindRequest);
-  const paths = pathFindResponse.result.alternatives;
+  const preparedOfferTCHFtoXRP = await client.autofill(offerCreateTCHFtoXRP);
+  const signedOfferTCHFtoXRP = senderWallet.sign(preparedOfferTCHFtoXRP);
+  const resultOfferTCHFtoXRP = await client.submitAndWait(signedOfferTCHFtoXRP.tx_blob);
+  console.log('TCHF to XRP swap:', resultOfferTCHFtoXRP);
 
-  if (paths.length === 0) {
-    console.log('No paths found with sufficient liquidity.');
-    await client.disconnect();
-    return;
-  }
+  // 2. Swap XRP to TEUR
+  const offerCreateXRPtoTEUR: OfferCreate = {
+    TransactionType: 'OfferCreate',
+    Account: senderAddress,
+    TakerGets: (1 * 1000000).toString(), // Specify the amount of XRP to offer (in drops)
+    TakerPays: {
+      currency: TEUR_CURRENCY_CODE,
+      issuer: TEUR_ISSUER_WALLET_ADDRESS,
+      value: amountToSend
+    },
+    Flags: 0x00080000 // tfImmediateOrCancel
+  };
 
-  const bestPath = paths[0].paths_computed;
+  const preparedOfferXRPtoTEUR = await client.autofill(offerCreateXRPtoTEUR);
+  const signedOfferXRPtoTEUR = senderWallet.sign(preparedOfferXRPtoTEUR);
+  const resultOfferXRPtoTEUR = await client.submitAndWait(signedOfferXRPtoTEUR.tx_blob);
+  console.log('XRP to TEUR swap:', resultOfferXRPtoTEUR);
 
-  // Create the payment transaction with the found path
+  // 3. Send TEUR to destination
   const payment: Payment = {
     TransactionType: 'Payment',
     Account: senderAddress,
     Amount: {
-      currency: destinationCurrency,
+      currency: TEUR_CURRENCY_CODE,
       value: amountToSend,
       issuer: TEUR_ISSUER_WALLET_ADDRESS
     },
-    Destination: recipientAddress,
-    SendMax: {
-      currency: sourceCurrency,
-      value: amountToSend,
-      issuer: TCHF_ISSUER_WALLET_ADDRESS
-    },
-    Paths: bestPath
+    Destination: recipientAddress
   };
 
-  // Sign and submit the payment transaction
   const preparedPayment = await client.autofill(payment);
   const signedPayment = senderWallet.sign(preparedPayment);
   const resultPayment = await client.submitAndWait(signedPayment.tx_blob);
 
   // Log the result and transaction link
-  console.log(resultPayment);
-  console.log("Transaction link: https://testnet.xrpl.org/transactions/${signedPayment.hash}");
+  console.log('TEUR payment:', resultPayment);
+  console.log(`Transaction link: https://testnet.xrpl.org/transactions/${signedPayment.hash}`);
 
   await client.disconnect();
 })();
