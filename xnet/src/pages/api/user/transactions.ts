@@ -19,7 +19,6 @@ const getWalletTransactionsByAddress = async (walletAddress) => {
       ledger_index_min: -1,
       ledger_index_max: -1,
       binary: false,
-      limit: 10,
     });
     console.log("🚀 ~ getWalletTransactionsByAddress ~ transactions:", transactions);
     return transactions;
