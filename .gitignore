@@ -13,7 +13,8 @@ node_modules
 .next
 # testing
 /coverage
-
+archive
+dist
 # next.js
 /.next/
 /out/
