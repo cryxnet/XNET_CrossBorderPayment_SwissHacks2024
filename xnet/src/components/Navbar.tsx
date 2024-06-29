@@ -1,34 +1,45 @@
-import {Link, NavbarBrand, NavbarContent, NavbarItem, Navbar as NextNavbar, Avatar} from "@nextui-org/react";
-import { useRouter } from "next/router";
-import {Image} from "@nextui-org/image";
+import { AppBar, Toolbar, Box, Button, Typography, Avatar } from '@mui/material';
+import Link from 'next/link';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 
-const NavbarItems = [{ text: "Home", href: "/" }, { text: "Transactions", href: "/transactions" }, { text: "Contacts", href: "/contacts" }, { text: "Alerts", href: "/alerts" }]
+const navbarItems = [
+    { text: "Home", href: "/" },
+    { text: "Transactions", href: "/transactions" },
+    { text: "Contacts", href: "/contacts" },
+    { text: "Alerts", href: "/alerts" }
+];
 
 const Navbar = () => {
     const router = useRouter();
 
     return (
-        <NextNavbar position="sticky" maxWidth="full">
-            <NavbarBrand className="w-1/3">
-                <Image width={100} src={"/logo.png"} className="font-bold text-inherit"></Image>
-            </NavbarBrand>
+        <AppBar position="sticky" sx={{ backgroundColor: 'white', color: 'black' }}>
+            <Toolbar sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
+                <Box sx={{ marginRight: 4, display: 'flex', alignItems: 'center' }}>
+                    <Image src="/logo.png" alt="logo" width={100} height={50} />
+                </Box>
 
-            <NavbarContent justify="center">
-                {NavbarItems.map((item) => {
-                    return (
-                        <NavbarItem className="[&:not(:last-child)]:mr-8" isActive={router.pathname === item.href} key={item.text}>
-                            <Link href={item.href}>
-                                {item.text}
-                            </Link>
-                        </NavbarItem>
-                    )
-                })}
-            </NavbarContent>
+                <Box sx={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+                    {navbarItems.map((item) => (
+                        <Button
+                            key={item.text}
+                            sx={{ marginX: 2, fontWeight: router.pathname === item.href ? 'bold' : 'normal' }}
+                            component={Link}
+                            href={item.href}
+                            underline="none"
+                        >
+                            {item.text}
+                        </Button>
+                    ))}
+                </Box>
 
-            <NavbarContent justify="end" className="w-1/3">
-                <Avatar src="https://i.pravatar.cc/150?u=a042581f4e29026024d" />
-            </NavbarContent>
-        </NextNavbar>
-    )
+                <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                    <Avatar src="https://i.pravatar.cc/150?u=a042581f4e29026024d" />
+                </Box>
+            </Toolbar>
+        </AppBar>
+    );
 }
+
 export default Navbar;

@@ -1,14 +1,24 @@
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
-// 1. import `NextUIProvider` component
+
 import { Button, NextUIProvider } from '@nextui-org/react';
 import Navbar from '@/components/Navbar';
+import {createTheme, ThemeProvider} from "@mui/material";
 
 export default function App({ Component, pageProps }: AppProps) {
+
+    const theme = createTheme({
+        palette: {
+            mode: 'light'  // Ensures that the light mode is activated
+        },
+    });
+
   return (
-    <NextUIProvider className="w-screen">
-      <Navbar/>
-      <Component {...pageProps} />
-    </NextUIProvider>
+      <ThemeProvider theme={theme}>
+          <NextUIProvider className="w-screen">
+              <Navbar/>
+              <Component {...pageProps} />
+          </NextUIProvider>
+      </ThemeProvider>
   );
 }

@@ -16,7 +16,9 @@ export default function Transactions() {
         <TransactionTable user={user} />
       </div>
       <div className="w-[calc(100%-(66%+4rem))]">
-        <Card className="bg-black w-full h-3/5 mb-8"></Card>
+          <div className=" w-full h-3/5 mb-8">
+            <Payment/>
+          </div>
         <Card className="w-full h-[calc(100%-(60%+2rem))]">
           <CardHeader>Add a contact</CardHeader>
           <CardBody className="flex justify-between items-center">

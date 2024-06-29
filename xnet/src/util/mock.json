@@ -3,7 +3,7 @@
     "id": "1",
     "first_name": "Alice",
     "last_name": "Smith",
-    "profile_picture": "https://example.com/profiles/1.jpg",
+    "profile_picture": "https://i.pravatar.cc/150?u=a042581f4e29026024d",
     "balance": 1200.50,
     "fees_paid": 35.00,
     "preferred_currency": "USD",
@@ -14,63 +14,72 @@
         "first_name": "Bob",
         "last_name": "Johnson",
         "preferred_currency": "EUR",
-        "wallet_address": "0xBobWalletAddress234"
+        "wallet_address": "0xBobWalletAddress234",
+        "profile_picture": "https://i.pravatar.cc/150?u=bob"
       },
       {
         "id": "3",
         "first_name": "Carol",
         "last_name": "Williams",
         "preferred_currency": "GBP",
-        "wallet_address": "0xCarolWalletAddress345"
+        "wallet_address": "0xCarolWalletAddress345",
+        "profile_picture": "https://i.pravatar.cc/150?u=carol"
       },
       {
         "id": "4",
         "first_name": "David",
         "last_name": "Brown",
         "preferred_currency": "CAD",
-        "wallet_address": "0xDavidWalletAddress456"
+        "wallet_address": "0xDavidWalletAddress456",
+        "profile_picture": "https://i.pravatar.cc/150?u=david"
       },
       {
         "id": "5",
         "first_name": "Eva",
         "last_name": "Davis",
         "preferred_currency": "AUD",
-        "wallet_address": "0xEvaWalletAddress567"
+        "wallet_address": "0xEvaWalletAddress567",
+        "profile_picture": "https://i.pravatar.cc/150?u=eva"
       },
       {
         "id": "6",
         "first_name": "Frank",
         "last_name": "Miller",
         "preferred_currency": "USD",
-        "wallet_address": "0xFrankWalletAddress678"
+        "wallet_address": "0xFrankWalletAddress678",
+        "profile_picture": "https://i.pravatar.cc/150?u=frank"
       },
       {
         "id": "7",
         "first_name": "Grace",
         "last_name": "Wilson",
         "preferred_currency": "JPY",
-        "wallet_address": "0xGraceWalletAddress789"
+        "wallet_address": "0xGraceWalletAddress789",
+        "profile_picture": "https://i.pravatar.cc/150?u=grace"
       },
       {
         "id": "8",
         "first_name": "Henry",
         "last_name": "Moore",
         "preferred_currency": "CHF",
-        "wallet_address": "0xHenryWalletAddress890"
+        "wallet_address": "0xHenryWalletAddress890",
+        "profile_picture": "https://i.pravatar.cc/150?u=henry"
       },
       {
         "id": "9",
         "first_name": "Isla",
         "last_name": "Taylor",
         "preferred_currency": "NZD",
-        "wallet_address": "0xIslaWalletAddress901"
+        "wallet_address": "0xIslaWalletAddress901",
+        "profile_picture": "https://i.pravatar.cc/150?u=isla"
       },
       {
         "id": "10",
         "first_name": "Jack",
         "last_name": "Anderson",
         "preferred_currency": "SGD",
-        "wallet_address": "0xJackWalletAddress012"
+        "wallet_address": "0xJackWalletAddress012",
+        "profile_picture": "https://i.pravatar.cc/150?u=jack"
       }
     ],
     "transactions": [

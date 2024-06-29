@@ -1,8 +1,9 @@
 import { List, ListItem } from "@mui/material"
-import { Divider, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@nextui-org/react"
+import {Chip, Divider, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow} from "@nextui-org/react"
 import { useEffect, useState } from "react";
+import {User} from "@nextui-org/user";
 
-interface NeededProps { firstName: string | undefined, lastName: string | undefined, amount: number | undefined, date: string | undefined, received: boolean | undefined }
+interface NeededProps { firstName: string | undefined, lastName: string | undefined, wallet: string | undefined, profile: string | undefined, amount: number | undefined, date: string | undefined, received: boolean | undefined }
 
 interface TransactionProps {
     contact_id: string;
@@ -21,6 +22,8 @@ const TransactionTable = (data) => {
             return {
                 firstName: contact.first_name,
                 lastName: contact.last_name,
+                profile: contact.profile_picture,
+                wallet: contact.wallet_address,
                 amount: transaction.amount,
                 date: transaction.date,
                 received: transaction.received
@@ -58,8 +61,7 @@ const TransactionTable = (data) => {
         // </List>
         <Table fullWidth className="h-full">
             <TableHeader>
-                <TableColumn>First Name</TableColumn>
-                <TableColumn>Last Name</TableColumn>
+                <TableColumn>Contact</TableColumn>
                 <TableColumn>Date</TableColumn>
                 <TableColumn>Amount</TableColumn>
             </TableHeader>
@@ -67,10 +69,19 @@ const TransactionTable = (data) => {
                 {transactionInfos.map((transaction, index) => {
                     return (
                         <TableRow key={index}>
-                            <TableCell>{transaction.firstName}</TableCell>
-                            <TableCell>{transaction.lastName}</TableCell>
+                            <TableCell>
+                                <User
+                                    avatarProps={{radius: "lg", src: transaction.profile}}
+                                    description={transaction.wallet}
+                                    name={transaction.firstName + " " + transaction.lastName}
+                                />
+                            </TableCell>
                             <TableCell>{transaction.date}</TableCell>
-                            <TableCell>{transaction.received ? "+" : "-"}{transaction.amount}</TableCell>
+                            <TableCell className={"flex justify-start"}>
+                                <Chip className="capitalize" color={transaction.received? "success" : "danger"} size="sm" variant="flat">
+                                    {transaction.received ? "+" : "-"}{transaction.amount}
+                                </Chip>
+                            </TableCell>
                         </TableRow>
                     )
                 })}
