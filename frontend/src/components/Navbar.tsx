@@ -10,7 +10,7 @@ const Navbar = () => {
     return (
         <NextNavbar position="sticky" maxWidth="full">
             <NavbarBrand className="w-1/3">
-                <Image width={100} src={"/logo.png"} alt={"lol"} className="font-bold text-inherit"></Image>
+                <Image width={100} src={"/logo.png"} className="font-bold text-inherit"></Image>
             </NavbarBrand>
 
             <NavbarContent justify="center">
