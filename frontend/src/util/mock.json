@@ -1,0 +1,55 @@
+{
+  "user": {
+    "id": "1",
+    "first_name": "Alice",
+    "last_name": "Smith",
+    "profile_picture": "https://example.com/profiles/1.jpg",
+    "balance": 1200.50,
+    "fees_paid": 35.00,
+    "preferred_currency": "USD",
+    "contacts": [
+      {"id": "2", "first_name": "Bob", "last_name": "Johnson", "preferred_currency": "EUR"},
+      {"id": "3", "first_name": "Carol", "last_name": "Williams", "preferred_currency": "GBP"},
+      {"id": "4", "first_name": "David", "last_name": "Brown", "preferred_currency": "CAD"},
+      {"id": "5", "first_name": "Eva", "last_name": "Davis", "preferred_currency": "AUD"}
+    ],
+    "transactions": [
+      {
+        "contact_id": "2",
+        "date": "2024-06-29",
+        "received": true,
+        "amount": 150.00
+      },
+      {
+        "contact_id": "3",
+        "date": "2024-06-28",
+        "received": false,
+        "amount": 75.00
+      },
+      {
+        "contact_id": "4",
+        "date": "2024-06-27",
+        "received": true,
+        "amount": 200.00
+      },
+      {
+        "contact_id": "5",
+        "date": "2024-06-26",
+        "received": false,
+        "amount": 90.00
+      }
+    ],
+    "alerts": [
+      {
+        "severity": "error",
+        "message": "Transaction failed due to insufficient funds.",
+        "title": "Transaction Error"
+      },
+      {
+        "severity": "warning",
+        "message": "Your account balance is low.",
+        "title": "Low Balance Warning"
+      }
+    ]
+  }
+}
