@@ -5,6 +5,7 @@ import {
     TableColumn,
     TableHeader,
     TableRow,
+    Button,
     useDisclosure
 } from "@nextui-org/react";
 import data from "@/util/mock.json";
@@ -12,7 +13,7 @@ import { FiEye } from "react-icons/fi";
 import {Modal, ModalBody, ModalContent, ModalFooter, ModalHeader} from "@nextui-org/modal";
 import {useState} from "react";
 import {set} from "@internationalized/date/src/manipulation";
-import {Box, Button} from "@mui/material"; // Import the eye icon from react-icons
+import {Box} from "@mui/material"; // Import the eye icon from react-icons
 
 export default function Contacts() {
     const contact = data.user;
