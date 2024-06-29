@@ -6,10 +6,6 @@ export default function Alerts() {
 
     const user = data.user
 
-    useEffect(() => {
-        console.log(user)
-    }, []);
-
 
     return (
         <div className={"w-full h-full flex flex-col p-6"}>

@@ -7,14 +7,14 @@
     "balance": 1200.50,
     "fees_paid": 35.00,
     "preferred_currency": "USD",
-    "wallet_address": "0xAliceWalletAddress123",
+    "wallet_address": "rDBg1qLgTFaYQ8R5U9bh8QXLv7ErFgWXz2",
     "contacts": [
       {
         "id": "2",
-        "first_name": "Bob",
+        "first_name": "Stef",
         "last_name": "Johnson",
         "preferred_currency": "EUR",
-        "wallet_address": "0xBobWalletAddress234",
+        "wallet_address": "rBeBTBDwmvsSnAJPV4y26FJBSPaEH8Qv15",
         "profile_picture": "https://i.pravatar.cc/150?u=bob"
       },
       {
