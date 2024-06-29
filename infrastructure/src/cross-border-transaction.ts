@@ -10,7 +10,7 @@ const recipientAddress = STEF_WALLET_ADDRESS;
 const senderWallet = Wallet.fromSeed(senderSecret);
 const recipientWallet = Wallet.fromSeed(recipientSecret);
 
-const amountToSend = '1'; // 1 TCHF
+const amountToSend = '12'; // 1 TCHF
 
 (async () => {
   await client.connect();
