@@ -6,5 +6,5 @@
     "esModuleInterop": true,
     "outDir": "./dist"
   },
-  "include": ["infrastructure/**/*"]
+  "include": ["src/**/*", "archive/main.ts", "archive/payment.ts", "src/wallets.ts", "archive/XRPLClient.ts"]
 }
