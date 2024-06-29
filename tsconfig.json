@@ -6,5 +6,5 @@
     "esModuleInterop": true,
     "outDir": "./dist"
   },
-  "include": ["ka_backend/**/*"]
+  "include": ["infrastructure/**/*"]
 }
