@@ -11,7 +11,7 @@ interface TransactionProps {
     amount: number;
 }
 
-const TransactionList = (data) => {
+const TransactionTable = (data) => {
     const [transactionInfos, setTransactionInfos] = useState<NeededProps[]>([])
 
     const getTransactionInfos = (transaction: TransactionProps): NeededProps => {
@@ -58,4 +58,4 @@ const TransactionList = (data) => {
         </List>
     )
 }
-export default TransactionList
+export default TransactionTable
