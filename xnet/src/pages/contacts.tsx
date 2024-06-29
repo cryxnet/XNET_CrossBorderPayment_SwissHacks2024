@@ -5,14 +5,14 @@ import {
     TableColumn,
     TableHeader,
     TableRow,
-    Button,
     useDisclosure
 } from "@nextui-org/react";
 import data from "@/util/mock.json";
 import { FiEye } from "react-icons/fi";
 import {Modal, ModalBody, ModalContent, ModalFooter, ModalHeader} from "@nextui-org/modal";
 import {useState} from "react";
-import {set} from "@internationalized/date/src/manipulation"; // Import the eye icon from react-icons
+import {set} from "@internationalized/date/src/manipulation";
+import {Box, Button} from "@mui/material"; // Import the eye icon from react-icons
 
 export default function Contacts() {
     const contact = data.user;
@@ -35,7 +35,10 @@ export default function Contacts() {
 
     return (
         <div className={"w-full h-full flex flex-col p-6"}>
-            <p className={"text-3xl"}>Your Contacts:</p>
+            <Box sx={{display: "flex", justifyContent: "space-between", width: "100%"}}>
+                <p className={"text-3xl"}>Your Contacts:</p>
+                <Button onClick={() => window.location.href = "/contacts/create"} variant={"contained"} color={"success"}>Add Contact</Button>
+            </Box>
             <br/>
             <Table aria-label="Example static collection table">
                 <TableHeader>
@@ -50,7 +53,7 @@ export default function Contacts() {
                             <TableCell>{contact.last_name}</TableCell>
                             <TableCell>{contact.preferred_currency}</TableCell>
                             <TableCell>
-                                <Button auto flat icon={<FiEye />} onClick={() => handleView(contact.id) } >View</Button>
+                                <Button auto flat icon={<FiEye/>} onClick={() => handleView(contact.id)}>View</Button>
                             </TableCell>
                         </TableRow>
                     ))}
@@ -62,13 +65,13 @@ export default function Contacts() {
                         <>
                             <ModalHeader className="flex flex-col gap-1">Contact</ModalHeader>
                             <ModalBody>
-                                Firstname: {" " +selectedContact.first_name}
+                                Firstname: {" " + selectedContact.first_name}
                                 <br/>
                                 <br/>
-                                Lastname: {" " +selectedContact.last_name}
+                                Lastname: {" " + selectedContact.last_name}
                                 <br/>
                                 <br/>
-                                Currency: {" " +selectedContact.preferred_currency}
+                                Currency: {" " + selectedContact.preferred_currency}
                             </ModalBody>
                             <ModalFooter>
                                 <Button color="danger" variant="light" onPress={onClose}>
@@ -79,6 +82,6 @@ export default function Contacts() {
                     )}
                 </ModalContent>
             </Modal>
-</div>
+        </div>
     );
 }
