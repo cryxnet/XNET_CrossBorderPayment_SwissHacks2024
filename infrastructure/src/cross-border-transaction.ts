@@ -10,7 +10,9 @@ const recipientAddress = STEF_WALLET_ADDRESS;
 const senderWallet = Wallet.fromSeed(senderSecret);
 const recipientWallet = Wallet.fromSeed(recipientSecret);
 
-const amountToSend = '12'; // 1 TCHF
+const amountToSend = '12'; // 12 TCHF
+const xrpAmountForTCHF = '240'; // Assuming 20 XRP for 1 TCHF
+const xrpAmountForTEUR = '240'; // Assuming 20 XRP for 1 TEUR
 
 (async () => {
   await client.connect();
@@ -57,7 +59,7 @@ const amountToSend = '12'; // 1 TCHF
       issuer: TCHF_ISSUER_WALLET_ADDRESS,
       value: amountToSend
     },
-    TakerPays: (1 * 1000000).toString(), // Specify the amount of XRP to receive (in drops)
+    TakerPays: xrpAmountForTCHF, // Specify the amount of XRP to receive (in drops)
     Flags: 0x00080000 // tfImmediateOrCancel
   };
 
@@ -70,7 +72,7 @@ const amountToSend = '12'; // 1 TCHF
   const offerCreateXRPtoTEUR: OfferCreate = {
     TransactionType: 'OfferCreate',
     Account: senderAddress,
-    TakerGets: (1 * 1000000).toString(), // Specify the amount of XRP to offer (in drops)
+    TakerGets: xrpAmountForTEUR, // Specify the amount of XRP to offer (in drops)
     TakerPays: {
       currency: TEUR_CURRENCY_CODE,
       issuer: TEUR_ISSUER_WALLET_ADDRESS,
