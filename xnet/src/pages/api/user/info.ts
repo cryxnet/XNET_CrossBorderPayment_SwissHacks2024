@@ -1,6 +1,6 @@
-// pages/api/getWalletTransactionsByAddress.js
-import { Client } from 'xrpl';
+// pages/api/getWalletAssetsByAddress.js
 import { NextApiRequest, NextApiResponse } from 'next';
+import { Client } from 'xrpl';
 
 async function createClient() {
   const client = new Client("wss://s.altnet.rippletest.net:51233");
@@ -9,20 +9,18 @@ async function createClient() {
   return client;
 }
 
-const getWalletTransactionsByAddress = async (walletAddress) => {
+const getWalletAssetsByAddress = async (walletAddress) => {
   const client = await createClient();
 
   try {
-    const transactions = await client.request({
-      command: "account_tx",
+    // Retrieve account info
+    const accountInfo = await client.request({
+      command: "account_info",
       account: walletAddress,
-      ledger_index_min: -1,
-      ledger_index_max: -1,
-      binary: false,
-      limit: 10,
+      ledger_index: "validated",
     });
-    console.log("🚀 ~ getWalletTransactionsByAddress ~ transactions:", transactions);
-    return transactions;
+    console.log("🚀 ~ getWalletAssetsByAddress ~ accountInfo:", accountInfo);
+    return accountInfo;
   } catch (error) {
     console.log("Error: ", error);
   } finally {
@@ -31,15 +29,15 @@ const getWalletTransactionsByAddress = async (walletAddress) => {
 };
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const { walletAddress } = req.query;
+  const { walletAddress } = req.query;
 
   if (!walletAddress) {
     return res.status(400).json({ error: "walletAddress query parameter is required" });
   }
 
   try {
-    const transactions = await getWalletTransactionsByAddress(walletAddress);
-    res.status(200).json(transactions);
+    const accountInfo = await getWalletAssetsByAddress(walletAddress);
+    res.status(200).json(accountInfo);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
