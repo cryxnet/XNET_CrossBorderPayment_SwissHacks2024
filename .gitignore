@@ -1,0 +1,5 @@
+/node_modules
+node_modules
+
+/dist
+node_modules/typescript/lib/lib.es2022.d.ts
