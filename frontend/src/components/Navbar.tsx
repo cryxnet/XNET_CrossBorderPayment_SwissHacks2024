@@ -12,10 +12,14 @@ const Navbar = () => {
                 <p className="font-bold text-inherit">ACME</p>
             </NavbarBrand>
 
-            <NavbarContent  justify="center">
+            <NavbarContent justify="center">
                 {NavbarItems.map((item) => {
                     return (
-                        <NavbarItem className="[&:not(:last-child)]:mr-8" isActive={router.pathname === item.href}><Link href={item.href}>{item.text}</Link></NavbarItem>
+                        <NavbarItem className="[&:not(:last-child)]:mr-8" isActive={router.pathname === item.href} key={item.text}>
+                            <Link href={item.href}>
+                                {item.text}
+                            </Link>
+                        </NavbarItem>
                     )
                 })}
             </NavbarContent>
