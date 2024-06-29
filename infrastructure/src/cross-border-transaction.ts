@@ -1,24 +1,57 @@
-import { Client, Wallet, Payment, xrpToDrops } from 'xrpl';
-import { } from './wallets'
-import { } from './tokens'
-const client = new Client('wss://s1.ripple.com'); // Use the testnet URL if you're testing
-const senderSecret = 'YOUR_SENDER_SECRET';
-const senderAddress = 'YOUR_SENDER_ADDRESS';
-const recipientAddress = 'RECIPIENT_ADDRESS';
-const wallet = Wallet.fromSeed(senderSecret);
+import { Client, Wallet, TrustSet, Payment } from 'xrpl';
+import { BOB_WALLET_ADDRESS, STEF_WALLET_ADDRESS, BOB_WALLET_SECRET, STEF_WALLET_SECRET } from './wallets';
+import { TCHF_CURRENCY_CODE, TCHF_ISSUER_WALLET_ADDRESS, TEUR_CURRENCY_CODE , TEUR_ISSUER_WALLET_ADDRESS} from './tokens';
 
-const sourceCurrency = 'TCHF';
-const destinationCurrency = 'TEUR';
+const client = new Client('wss://s.altnet.rippletest.net:51233');
+const senderSecret = BOB_WALLET_SECRET;
+const senderAddress = BOB_WALLET_ADDRESS;
+const recipientSecret = STEF_WALLET_SECRET;
+const recipientAddress = STEF_WALLET_ADDRESS;
+const senderWallet = Wallet.fromSeed(senderSecret);
+const recipientWallet = Wallet.fromSeed(recipientSecret);
+
+const sourceCurrency = TCHF_CURRENCY_CODE;
+const destinationCurrency = TEUR_CURRENCY_CODE;
 const amountToSend = '10'; // 10 TCHF
+
 
 (async () => {
     await client.connect();
-  })();
   
-
-  (async () => {
-    await client.connect();
+    // Create TrustSet transaction for TCHF
+    const trustSetTCHF: TrustSet = {
+      TransactionType: 'TrustSet',
+      Account: recipientAddress,
+      LimitAmount: {
+        currency: sourceCurrency,
+        issuer: TCHF_ISSUER_WALLET_ADDRESS,
+        value: '1000000' // Set a high enough limit
+      }
+    };
   
+    // Create TrustSet transaction for TEUR
+    const trustSetTEUR: TrustSet = {
+      TransactionType: 'TrustSet',
+      Account: recipientAddress,
+      LimitAmount: {
+        currency: destinationCurrency,
+        issuer: TEUR_ISSUER_WALLET_ADDRESS,
+        value: '1000000' // Set a high enough limit
+      }
+    };
+  
+    // Sign and submit TrustSet transactions
+    const preparedTCHF = await client.autofill(trustSetTCHF);
+    const signedTCHF = recipientWallet.sign(preparedTCHF);
+    await client.submitAndWait(signedTCHF.tx_blob);
+  
+    const preparedTEUR = await client.autofill(trustSetTEUR);
+    const signedTEUR = recipientWallet.sign(preparedTEUR);
+    await client.submitAndWait(signedTEUR.tx_blob);
+  
+    console.log('Trust lines set for TCHF and TEUR.');
+  
+    // Create the payment transaction
     const payment: Payment = {
       TransactionType: 'Payment',
       Account: senderAddress,
@@ -31,7 +64,7 @@ const amountToSend = '10'; // 10 TCHF
       SendMax: {
         currency: sourceCurrency,
         value: amountToSend,
-        issuer: senderAddress
+        issuer: TCHF_CURRENCY_CODE
       },
       Paths: [
         [
@@ -40,18 +73,20 @@ const amountToSend = '10'; // 10 TCHF
           },
           {
             currency: destinationCurrency,
-            issuer: recipientAddress
+            issuer: TEUR_ISSUER_WALLET_ADDRESS
           }
         ]
       ]
     };
   
-    // Sign and submit the transaction
-    const prepared = await client.autofill(payment);
-    const signed = wallet.sign(prepared);
-    const result = await client.submitAndWait(signed.tx_blob);
+    // Sign and submit the payment transaction
+    const preparedPayment = await client.autofill(payment);
+    const signedPayment = senderWallet.sign(preparedPayment);
+    const resultPayment = await client.submitAndWait(signedPayment.tx_blob);
   
-    console.log(result);
+    // Log the result and transaction link
+    console.log(resultPayment);
+    console.log(`Transaction link: https://testnet.xrpl.org/transactions/${signedPayment.hash}`);
   
     await client.disconnect();
   })();
