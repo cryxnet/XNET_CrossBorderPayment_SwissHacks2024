@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "typescript": "^5.5.2"
+  },
+  "dependencies": {
+    "xrpl": "^3.1.0"
+  }
+}
