@@ -1,5 +1,14 @@
 /node_modules
+node_modules/
 node_modules
-
+node_modules/*
 /dist
 node_modules/typescript/lib/lib.es2022.d.ts
+node_modules/typescript/bin/tsserver
+
+node_modules/typescript/*
+node_modules/*
+node_modules/typescript/lib/tr/diagnosticMessages.generated.json
+node_modules/typescript/lib/lib.es2015.generator.d.ts
+node_modules/typescript/lib/lib.es2015.iterable.d.ts
+node_modules/typescript/lib/lib.es2015.symbol.wellknown.d.ts
