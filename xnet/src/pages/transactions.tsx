@@ -66,7 +66,7 @@ export default function Transactions() {
               clicking here.
             </p>
             <Button color="primary" className="w-1/2">
-              <Link href="/contacts/create">Create Contact</Link>
+              <Link href="/contacts/create">Add Contact</Link>
             </Button>
           </CardBody>
         </Card>
