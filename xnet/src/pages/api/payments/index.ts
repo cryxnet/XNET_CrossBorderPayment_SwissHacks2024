@@ -1,27 +1,30 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { Client, Wallet, TrustSet, Payment, OfferCreate } from 'xrpl';
 
-const client = new Client('wss://s.altnet.rippletest.net:51233');
-
+// Constants for TCHF and TEUR
 const TCHF_CURRENCY_CODE = '5443484600000000000000000000000000000000';
 const TCHF_ISSUER_WALLET_ADDRESS = 'rsGGhyfhzf2KtJRPCmCxG8KgVnTTYeD5aL';
 const TEUR_CURRENCY_CODE = '5445555200000000000000000000000000000000';
 const TEUR_ISSUER_WALLET_ADDRESS = 'rwzRgMcAYWv9q7DPgFbMvZw9KMLa3ZXN2K';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { senderSecret, retrieverSecret, amount } = req.body;
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
 
-  if (!senderSecret || !retrieverSecret || !amount) {
+  const { senderSecret, recipientSecret, amount } = req.body;
+
+  if (!senderSecret || !recipientSecret || !amount) {
     return res.status(400).json({ error: 'Missing required parameters' });
   }
 
+  const client = new Client('wss://s.altnet.rippletest.net:51233');
   const senderWallet = Wallet.fromSeed(senderSecret);
-  const recipientWallet = Wallet.fromSeed(retrieverSecret);
-  const senderAddress = senderWallet.classicAddress;
-  const recipientAddress = recipientWallet.classicAddress;
+  const recipientWallet = Wallet.fromSeed(recipientSecret);
+  const recipientAddress = recipientWallet.address;
 
-  const xrpAmountForTCHF ="24"; // Assuming 2 XRP for 1 TCHF
-  const xrpAmountForTEUR =  "24"; // Assuming 2 XRP for 1 TEUR
+  const xrpAmountForTCHF = '24000000'; // Assuming 2 XRP for 1 TCHF (24 XRP in drops)
+  const xrpAmountForTEUR = '24000000'; // Assuming 2 XRP for 1 TEUR (24 XRP in drops)
 
   try {
     await client.connect();
@@ -51,24 +54,24 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     // Sign and submit TrustSet transactions
     const preparedTCHF = await client.autofill(trustSetTCHF);
     const signedTCHF = recipientWallet.sign(preparedTCHF);
-    await client.submitAndWait(signedTCHF.tx_blob);
+    const resultTrustTCHF = await client.submitAndWait(signedTCHF.tx_blob);
 
     const preparedTEUR = await client.autofill(trustSetTEUR);
     const signedTEUR = recipientWallet.sign(preparedTEUR);
-    await client.submitAndWait(signedTEUR.tx_blob);
+    const resultTrustTEUR = await client.submitAndWait(signedTEUR.tx_blob);
 
     console.log('Trust lines set for TCHF and TEUR.');
 
     // 1. Swap TCHF to XRP
     const offerCreateTCHFtoXRP: OfferCreate = {
       TransactionType: 'OfferCreate',
-      Account: senderAddress,
+      Account: senderWallet.address,
       TakerGets: {
         currency: TCHF_CURRENCY_CODE,
         issuer: TCHF_ISSUER_WALLET_ADDRESS,
         value: amount
       },
-      TakerPays: xrpAmountForTCHF.toString(), // Specify the amount of XRP to receive (in drops)
+      TakerPays: xrpAmountForTCHF, // Specify the amount of XRP to receive (in drops)
       Flags: 0x00080000 // tfImmediateOrCancel
     };
 
@@ -80,8 +83,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     // 2. Swap XRP to TEUR
     const offerCreateXRPtoTEUR: OfferCreate = {
       TransactionType: 'OfferCreate',
-      Account: senderAddress,
-      TakerGets: xrpAmountForTEUR.toString(), // Specify the amount of XRP to offer (in drops)
+      Account: senderWallet.address,
+      TakerGets: xrpAmountForTEUR, // Specify the amount of XRP to offer (in drops)
       TakerPays: {
         currency: TEUR_CURRENCY_CODE,
         issuer: TEUR_ISSUER_WALLET_ADDRESS,
@@ -98,7 +101,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     // 3. Send TEUR to destination
     const payment: Payment = {
       TransactionType: 'Payment',
-      Account: senderAddress,
+      Account: senderWallet.address,
       Amount: {
         currency: TEUR_CURRENCY_CODE,
         value: amount,
@@ -117,11 +120,20 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     await client.disconnect();
 
-    res.status(200).json({ message: 'Transaction successful', transactionLink: `https://testnet.xrpl.org/transactions/${signedPayment.hash}` });
+    res.status(200).json({
+      message: 'Payment successful',
+      transactionLinks: {
+        trustSetTCHF: `https://testnet.xrpl.org/transactions/${resultTrustTCHF.result.hash}`,
+        trustSetTEUR: `https://testnet.xrpl.org/transactions/${resultTrustTEUR.result.hash}`,
+        offerTCHFtoXRP: `https://testnet.xrpl.org/transactions/${resultOfferTCHFtoXRP.result.hash}`,
+        offerXRPtoTEUR: `https://testnet.xrpl.org/transactions/${resultOfferXRPtoTEUR.result.hash}`,
+        paymentTEUR: `https://testnet.xrpl.org/transactions/${resultPayment.result.hash}`
+      }
+    });
+
   } catch (error) {
-    console.error(error);
-    await client.disconnect();
-    res.status(500).json({ error: 'Transaction failed', details: error.message });
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 };
 
