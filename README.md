@@ -30,6 +30,7 @@ This part of the repository stores all the scripts used to set up our infrastruc
 - **/src/tokens/createTEUR.ts**: Script to create the TEUR token.
 
 ## Infrastructure Setup and Execution
+Read more about infrastructure and the whole blockchain process in `infrastructure/README.md``
 
 ### 1 Install dependencies
 

@@ -26,3 +26,19 @@ This section of the repository contains all the scripts used to set up our infra
    ```sh
    node dist/src/cross-border-transaction.js
    ```
+
+## Setup
+There are several steps for creating an enviroment.
+
+1. Create 2 Test wallets on the testnet and give them some XRP. One is the sender and one is the recv.
+For example `Bob` is a person living in switzerland and wants to send his friend `Stef` (from germany) money.
+
+2. Create TCHF Token and TEUR Token
+don't forget to add then these results (issuer and distrobutor wallet that are getting created along side of all the other information)
+to `wallets.ts` and `tokens.ts` so you can reuse it (we made everything public as purpose to be transparent)
+
+3. Run `createAMMs.ts ` for creating the AMM Pool: TCHF -> XRP and TEUR -> XRP.
+
+4. Give Bob some money because he's broke. Run `giveBobTCHF.ts`
+
+5. Run the `cross-border-transaction.ts` to start the cross border payment transaction.
