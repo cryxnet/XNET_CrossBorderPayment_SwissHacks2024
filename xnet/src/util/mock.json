@@ -1,0 +1,263 @@
+{
+  "user": {
+    "id": "1",
+    "first_name": "Alice",
+    "last_name": "Smith",
+    "profile_picture": "https://i.pravatar.cc/150?u=a042581f4e29026024d",
+    "balance": 1200.50,
+    "fees_paid": 35.00,
+    "preferred_currency": "USD",
+    "wallet_address": "rDBg1qLgTFaYQ8R5U9bh8QXLv7ErFgWXz2",
+    "secret": "sEdTrx6kK7b8SghC9SYUcW7mwsufouZ",
+    "contacts": [
+      {
+        "id": "2",
+        "first_name": "Stef",
+        "last_name": "Johnson",
+        "preferred_currency": "EUR",
+        "wallet_address": "rBeBTBDwmvsSnAJPV4y26FJBSPaEH8Qv15",
+        "profile_picture": "https://i.pravatar.cc/150?u=bob"
+      },
+      {
+        "id": "3",
+        "first_name": "Carol",
+        "last_name": "Williams",
+        "preferred_currency": "GBP",
+        "wallet_address": "0xCarolWalletAddress345",
+        "profile_picture": "https://i.pravatar.cc/150?u=carol"
+      },
+      {
+        "id": "4",
+        "first_name": "David",
+        "last_name": "Brown",
+        "preferred_currency": "CAD",
+        "wallet_address": "0xDavidWalletAddress456",
+        "profile_picture": "https://i.pravatar.cc/150?u=david"
+      },
+      {
+        "id": "5",
+        "first_name": "Eva",
+        "last_name": "Davis",
+        "preferred_currency": "AUD",
+        "wallet_address": "0xEvaWalletAddress567",
+        "profile_picture": "https://i.pravatar.cc/150?u=eva"
+      },
+      {
+        "id": "6",
+        "first_name": "Frank",
+        "last_name": "Miller",
+        "preferred_currency": "USD",
+        "wallet_address": "0xFrankWalletAddress678",
+        "profile_picture": "https://i.pravatar.cc/150?u=frank"
+      },
+      {
+        "id": "7",
+        "first_name": "Grace",
+        "last_name": "Wilson",
+        "preferred_currency": "JPY",
+        "wallet_address": "0xGraceWalletAddress789",
+        "profile_picture": "https://i.pravatar.cc/150?u=grace"
+      },
+      {
+        "id": "8",
+        "first_name": "Henry",
+        "last_name": "Moore",
+        "preferred_currency": "CHF",
+        "wallet_address": "0xHenryWalletAddress890",
+        "profile_picture": "https://i.pravatar.cc/150?u=henry"
+      },
+      {
+        "id": "9",
+        "first_name": "Isla",
+        "last_name": "Taylor",
+        "preferred_currency": "NZD",
+        "wallet_address": "0xIslaWalletAddress901",
+        "profile_picture": "https://i.pravatar.cc/150?u=isla"
+      },
+      {
+        "id": "10",
+        "first_name": "Jack",
+        "last_name": "Anderson",
+        "preferred_currency": "SGD",
+        "wallet_address": "0xJackWalletAddress012",
+        "profile_picture": "https://i.pravatar.cc/150?u=jack"
+      }
+    ],
+    "transactions": [
+      {
+        "contact_id": "2",
+        "date": "2024-06-29",
+        "received": true,
+        "amount": 150.00
+      },
+      {
+        "contact_id": "3",
+        "date": "2024-06-28",
+        "received": false,
+        "amount": 75.00
+      },
+      {
+        "contact_id": "4",
+        "date": "2024-06-27",
+        "received": true,
+        "amount": 200.00
+      },
+      {
+        "contact_id": "5",
+        "date": "2024-06-26",
+        "received": false,
+        "amount": 90.00
+      },
+      {
+        "contact_id": "6",
+        "date": "2024-06-25",
+        "received": true,
+        "amount": 50.00
+      },
+      {
+        "contact_id": "7",
+        "date": "2024-06-24",
+        "received": true,
+        "amount": 120.00
+      },
+      {
+        "contact_id": "8",
+        "date": "2024-06-23",
+        "received": false,
+        "amount": 60.00
+      },
+      {
+        "contact_id": "9",
+        "date": "2024-06-22",
+        "received": true,
+        "amount": 180.00
+      },
+      {
+        "contact_id": "10",
+        "date": "2024-06-21",
+        "received": false,
+        "amount": 110.00
+      },
+      {
+        "contact_id": "2",
+        "date": "2024-06-20",
+        "received": true,
+        "amount": 95.00
+      },
+      {
+        "contact_id": "3",
+        "date": "2024-06-19",
+        "received": true,
+        "amount": 250.00
+      },
+      {
+        "contact_id": "4",
+        "date": "2024-06-18",
+        "received": false,
+        "amount": 80.00
+      },
+      {
+        "contact_id": "5",
+        "date": "2024-06-17",
+        "received": true,
+        "amount": 130.00
+      },
+      {
+        "contact_id": "6",
+        "date": "2024-06-16",
+        "received": false,
+        "amount": 70.00
+      },
+      {
+        "contact_id": "7",
+        "date": "2024-06-15",
+        "received": true,
+        "amount": 210.00
+      },
+      {
+        "contact_id": "8",
+        "date": "2024-06-14",
+        "received": false,
+        "amount": 100.00
+      },
+      {
+        "contact_id": "9",
+        "date": "2024-06-13",
+        "received": true,
+        "amount": 55.00
+      },
+      {
+        "contact_id": "10",
+        "date": "2024-06-12",
+        "received": false,
+        "amount": 65.00
+      },
+      {
+        "contact_id": "2",
+        "date": "2024-06-11",
+        "received": true,
+        "amount": 175.00
+      },
+      {
+        "contact_id": "3",
+        "date": "2024-06-10",
+        "received": false,
+        "amount": 90.00
+      },
+      {
+        "contact_id": "4",
+        "date": "2024-06-09",
+        "received": true,
+        "amount": 140.00
+      },
+      {
+        "contact_id": "5",
+        "date": "2024-06-08",
+        "received": false,
+        "amount": 85.00
+      },
+      {
+        "contact_id": "6",
+        "date": "2024-06-07",
+        "received": true,
+        "amount": 65.00
+      },
+      {
+        "contact_id": "7",
+        "date": "2024-06-06",
+        "received": false,
+        "amount": 115.00
+      },
+      {
+        "contact_id": "8",
+        "date": "2024-06-05",
+        "received": true,
+        "amount": 195.00
+      },
+      {
+        "contact_id": "9",
+        "date": "2024-06-04",
+        "received": false,
+        "amount": 105.00
+      },
+      {
+        "contact_id": "10",
+        "date": "2024-06-03",
+        "received": true,
+        "amount": 145.00
+      }
+    ],
+    "alerts": [
+      {
+        "severity": "error",
+        "message": "Transaction failed due to insufficient funds.",
+        "title": "Transaction Error"
+      },
+      {
+        "severity": "warning",
+        "message": "Your account balance is low.",
+        "title": "Low Balance Warning"
+      }
+    ]
+  }
+}
