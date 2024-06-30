@@ -3,7 +3,7 @@ import type { AppProps } from 'next/app';
 
 import { Button, NextUIProvider } from '@nextui-org/react';
 import Navbar from '@/components/Navbar';
-import {createTheme, ThemeProvider} from "@mui/material";
+import {Box, createTheme, ThemeProvider} from "@mui/material";
 
 export default function App({ Component, pageProps }: AppProps) {
 
@@ -16,8 +16,10 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
       <ThemeProvider theme={theme}>
           <NextUIProvider className="w-screen">
-              <Navbar/>
+            <Navbar/>
+            <Box className={"h-screen bg-blue-500 overflow-y-scroll"}>
               <Component {...pageProps} />
+            </Box>
           </NextUIProvider>
       </ThemeProvider>
   );
