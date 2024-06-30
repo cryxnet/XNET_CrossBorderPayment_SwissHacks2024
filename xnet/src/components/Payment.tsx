@@ -28,7 +28,7 @@ const Payment = () => {
   const [contact, setContact] = useState(null);
   const [sendAmount, setSendAmount] = useState(null);
   const [recieveAmount, setRecieveAmount] = useState(null);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState([""]);
   const [transactionWorked, setTransactionWorked] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -67,25 +67,29 @@ const Payment = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          senderSecret,
-          retrieverSecret,
+          senderSecret: senderSecret,
+          recipientSecret: retrieverSecret,
           amount: (sendAmount as number).toString(),
         }),
       });
 
       const data = await response.json();
       if (response.ok) {
-        setMessage(data.transactionLink);
+        setMessage([
+          data.transactionLinks.offerTCHFtoXRP,
+          data.transactionLinks.offerXRPtoTEUR,
+          data.transactionLinks.paymentTEUR,
+        ]);
         setTransactionWorked(true);
         setLoading(false);
       } else {
-        setMessage(`Payment failed: ${data.message}`);
+        setMessage([`Payment failed: ${data.message}`]);
         setTransactionWorked(false);
         setLoading(false);
       }
     } catch (error) {
       console.error("Error making payment:", error);
-      setMessage("Payment failed due to an error.");
+      setMessage(["Payment failed due to an error."]);
       setTransactionWorked(false);
       setLoading(false);
     }
@@ -190,11 +194,14 @@ const Payment = () => {
             Authorize Payment
           </Button>
         </Box>
-        {transactionWorked && (
-          <Link passHref={true} href={message}>
-            Payment successfully completed, click me!
-          </Link>
-        )}
+        {transactionWorked &&
+          message.map((mess, index) => {
+            return (
+              <Link passHref={true} href={mess}>
+                {`Payment ${index} successfully completed, click me!`}
+              </Link>
+            );
+          })}
       </CardBody>
     </Card>
   );
