@@ -20,8 +20,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const senderAddress = senderWallet.classicAddress;
   const recipientAddress = recipientWallet.classicAddress;
 
-  const xrpAmountForTCHF = amount * 2; // Assuming 2 XRP for 1 TCHF
-  const xrpAmountForTEUR =  amount * 2.2; // Assuming 2 XRP for 1 TEUR
+  const xrpAmountForTCHF ="24"; // Assuming 2 XRP for 1 TCHF
+  const xrpAmountForTEUR =  "24"; // Assuming 2 XRP for 1 TEUR
 
   try {
     await client.connect();
