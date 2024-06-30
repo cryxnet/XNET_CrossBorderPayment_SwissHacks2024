@@ -20,8 +20,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const senderAddress = senderWallet.classicAddress;
   const recipientAddress = recipientWallet.classicAddress;
 
-  const xrpAmountForTCHF = '240'; // Assuming 20 XRP for 1 TCHF
-  const xrpAmountForTEUR = '240'; // Assuming 20 XRP for 1 TEUR
+  const xrpAmountForTCHF ="24"; // Assuming 2 XRP for 1 TCHF
+  const xrpAmountForTEUR =  "24"; // Assuming 2 XRP for 1 TEUR
 
   try {
     await client.connect();
@@ -68,7 +68,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         issuer: TCHF_ISSUER_WALLET_ADDRESS,
         value: amount
       },
-      TakerPays: xrpAmountForTCHF, // Specify the amount of XRP to receive (in drops)
+      TakerPays: xrpAmountForTCHF.toString(), // Specify the amount of XRP to receive (in drops)
       Flags: 0x00080000 // tfImmediateOrCancel
     };
 
@@ -81,7 +81,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const offerCreateXRPtoTEUR: OfferCreate = {
       TransactionType: 'OfferCreate',
       Account: senderAddress,
-      TakerGets: xrpAmountForTEUR, // Specify the amount of XRP to offer (in drops)
+      TakerGets: xrpAmountForTEUR.toString(), // Specify the amount of XRP to offer (in drops)
       TakerPays: {
         currency: TEUR_CURRENCY_CODE,
         issuer: TEUR_ISSUER_WALLET_ADDRESS,
