@@ -58,7 +58,7 @@ async function sendTCHFtoBob() {
       Destination: recipientAddress,
       Amount: {
         currency: TCHF_CURRENCY_CODE,
-        value: '10',
+        value: '103',
         issuer: TCHF_ISSUER_WALLET_ADDRESS,
       },
       Flags: 2147483648, // tfUniversal
