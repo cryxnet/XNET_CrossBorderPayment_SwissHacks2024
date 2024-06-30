@@ -53,8 +53,8 @@ const Payment = () => {
   const handleSubmit = async () => {
     const senderSecret = user.secret;
 
-    const recipientAddress = "rBeBTBDwmvsSnAJPV4y26FJBSPaEH8Qv15";
-    const retrieverSecret = "sEd7pjRtgXyEqRXCVLzPs3wtk4oRCyX";
+    const recipientAddress = "rU2JuuNewAXCDfmvi7Fkbnuof8UV9QLu4L";
+    const retrieverSecret = "sEd7kp863GThPejGuxJQFUXHvkEVNYT";
 
     try {
       setLoading(true);
