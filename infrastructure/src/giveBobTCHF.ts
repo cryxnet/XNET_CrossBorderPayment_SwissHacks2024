@@ -1,19 +1,53 @@
-import { Client, Wallet, Payment } from 'xrpl';
+import { Client, Wallet, Payment, TrustSet } from 'xrpl';
 import {
   TCHF_CURRENCY_CODE,
-  TCHF_DISTRIBUTOR_WALLET_ADDRESS,
   TCHF_DISTRIBUTOR_WALLET_SEED,
-  TCHF_ISSUER_WALLET_ADDRESS,
+  TCHF_ISSUER_WALLET_ADDRESS
 } from './tokens';
 import { bobWallet } from './wallets';
 
 // Connect to the XRPL Testnet
 const client = new Client('wss://s.altnet.rippletest.net:51233');
 
+async function setupTrustLine() {
+  await client.connect();
+
+  try {
+    const trustSet: TrustSet = {
+      TransactionType: 'TrustSet',
+      Account: bobWallet.address,
+      LimitAmount: {
+        currency: TCHF_CURRENCY_CODE,
+        issuer: TCHF_ISSUER_WALLET_ADDRESS,
+        value: '1000000', // Set an appropriate limit
+      },
+      Flags: 131072, // tfSetNoRipple
+    };
+
+    const trustSetResponse = await client.submitAndWait(trustSet, {
+      wallet: bobWallet,
+      autofill: true,
+      failHard: true,
+    });
+
+    if (trustSetResponse.result.meta.TransactionResult !== 'tesSUCCESS') {
+      throw new Error(`Failed to set trust line for TCHF: ${trustSetResponse.result.meta.TransactionResult}`);
+    }
+
+    console.log('Trust line setup successful:', trustSetResponse);
+    console.log(`Transaction link: https://testnet.xrpl.org/transactions/${trustSetResponse.result.hash}`);
+
+  } catch (error) {
+    console.error('Error in setting up trust line:', error);
+  } finally {
+    await client.disconnect();
+  }
+}
+
 async function sendTCHFtoBob() {
   await client.connect();
 
-  const distributorWallet = Wallet.fromSeed(TCHF_DISTRIBUTOR_WALLET_SEED);
+  const distributorWallet = Wallet.fromSeed(TCHF_DISTRIBUTOR_WALLET_SEED); // Use the correct SEED for the distributor wallet
   const recipientAddress = bobWallet.address; // Bob's wallet address
 
   try {
@@ -50,4 +84,13 @@ async function sendTCHFtoBob() {
   }
 }
 
-sendTCHFtoBob().catch(console.error);
+async function main() {
+  try {
+    await setupTrustLine();
+    await sendTCHFtoBob();
+  } catch (error) {
+    console.error('Error in the main function:', error);
+  }
+}
+
+main().catch(console.error);

@@ -1,6 +1,6 @@
 import { Client, Wallet, TrustSet, Payment, OfferCreate } from 'xrpl';
 import { BOB_WALLET_ADDRESS, STEF_WALLET_ADDRESS, BOB_WALLET_SECRET, STEF_WALLET_SECRET } from './wallets';
-import { TCHF_CURRENCY_CODE, TCHF_ISSUER_WALLET_ADDRESS, TEUR_CURRENCY_CODE , TEUR_ISSUER_WALLET_ADDRESS } from './tokens';
+import { TCHF_CURRENCY_CODE, TCHF_ISSUER_WALLET_ADDRESS, TEUR_CURRENCY_CODE, TEUR_ISSUER_WALLET_ADDRESS } from './tokens';
 
 const client = new Client('wss://s.altnet.rippletest.net:51233');
 const senderSecret = BOB_WALLET_SECRET;
@@ -8,11 +8,11 @@ const senderAddress = BOB_WALLET_ADDRESS;
 const recipientSecret = STEF_WALLET_SECRET;
 const recipientAddress = STEF_WALLET_ADDRESS;
 const senderWallet = Wallet.fromSeed(senderSecret);
-const recipientWallet = Wallet.fromSeed(recipientSecret); // WE ONLY NEED THE SECRET BECASUE WE HAVE TO SET THE TrustSet, when someone registers, this will then be set.
+const recipientWallet = Wallet.fromSeed(recipientSecret);
 
-const amountToSend = 12; // 12 TCHF
-const xrpAmountForTCHF = amountToSend * 2; // Assuming 2 XRP for 1 TCHF
-const xrpAmountForTEUR =  amountToSend * 2.2; // Assuming 2 XRP for 1 TEUR
+const amountToSend = '12'; // 12 TCHF
+const xrpAmountForTCHF = '24000000'; // Assuming 2 XRP for 1 TCHF (24 XRP in drops)
+const xrpAmountForTEUR = '24000000'; // Assuming 2 XRP for 1 TEUR (24 XRP in drops)
 
 (async () => {
   await client.connect();
@@ -57,9 +57,9 @@ const xrpAmountForTEUR =  amountToSend * 2.2; // Assuming 2 XRP for 1 TEUR
     TakerGets: {
       currency: TCHF_CURRENCY_CODE,
       issuer: TCHF_ISSUER_WALLET_ADDRESS,
-      value: amountToSend.toString()
+      value: amountToSend
     },
-    TakerPays: xrpAmountForTCHF.toString(), // Specify the amount of XRP to receive (in drops)
+    TakerPays: xrpAmountForTCHF, // Specify the amount of XRP to receive (in drops)
     Flags: 0x00080000 // tfImmediateOrCancel
   };
 
@@ -72,11 +72,11 @@ const xrpAmountForTEUR =  amountToSend * 2.2; // Assuming 2 XRP for 1 TEUR
   const offerCreateXRPtoTEUR: OfferCreate = {
     TransactionType: 'OfferCreate',
     Account: senderAddress,
-    TakerGets: xrpAmountForTEUR.toString(), // Specify the amount of XRP to offer (in drops)
+    TakerGets: xrpAmountForTEUR, // Specify the amount of XRP to offer (in drops)
     TakerPays: {
       currency: TEUR_CURRENCY_CODE,
       issuer: TEUR_ISSUER_WALLET_ADDRESS,
-      value: amountToSend.toString()
+      value: amountToSend
     },
     Flags: 0x00080000 // tfImmediateOrCancel
   };
@@ -92,7 +92,7 @@ const xrpAmountForTEUR =  amountToSend * 2.2; // Assuming 2 XRP for 1 TEUR
     Account: senderAddress,
     Amount: {
       currency: TEUR_CURRENCY_CODE,
-      value: amountToSend.toString(),
+      value: amountToSend,
       issuer: TEUR_ISSUER_WALLET_ADDRESS
     },
     Destination: recipientAddress
@@ -107,4 +107,4 @@ const xrpAmountForTEUR =  amountToSend * 2.2; // Assuming 2 XRP for 1 TEUR
   console.log(`Transaction link: https://testnet.xrpl.org/transactions/${signedPayment.hash}`);
 
   await client.disconnect();
-})();
+})().catch(console.error);
