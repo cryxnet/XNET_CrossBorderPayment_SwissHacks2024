@@ -3,9 +3,9 @@ import { Client, Wallet, TrustSet, Payment, OfferCreate } from 'xrpl';
 
 const client = new Client('wss://s.altnet.rippletest.net:51233');
 
-const TCHF_CURRENCY_CODE = 'TCHF';
+const TCHF_CURRENCY_CODE = '5443484600000000000000000000000000000000';
 const TCHF_ISSUER_WALLET_ADDRESS = 'rsGGhyfhzf2KtJRPCmCxG8KgVnTTYeD5aL';
-const TEUR_CURRENCY_CODE = 'TEUR';
+const TEUR_CURRENCY_CODE = '5445555200000000000000000000000000000000';
 const TEUR_ISSUER_WALLET_ADDRESS = 'rwzRgMcAYWv9q7DPgFbMvZw9KMLa3ZXN2K';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
