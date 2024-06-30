@@ -1,7 +1,7 @@
 const tchf_xrp_amm = {
     id: 22,
     result: {
-      Account: 'rKAbUWsuyDZNDCvuWUSK9aJoM72ZSwiZaZ',
+      Account: 'rKAbUWsuyDZNDCvuWUSK9aJoM72ZSwiZaZ', // Only this is important
       Amount: {
         currency: '5443484600000000000000000000000000000000',
         issuer: 'rsGGhyfhzf2KtJRPCmCxG8KgVnTTYeD5aL',
@@ -34,7 +34,7 @@ const tchf_xrp_amm = {
 const teur_xrp_amm = {
     id: 11,
     result: {
-      Account: 'rGye3pVBYFWviV5DRRCtCJeSnfbqVBxRd7',
+      Account: 'rGye3pVBYFWviV5DRRCtCJeSnfbqVBxRd7', // Only this is important
       Amount: {
         currency: '5445555200000000000000000000000000000000',
         issuer: 'rwzRgMcAYWv9q7DPgFbMvZw9KMLa3ZXN2K',

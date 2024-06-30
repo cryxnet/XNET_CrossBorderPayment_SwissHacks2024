@@ -10,9 +10,9 @@ const recipientAddress = STEF_WALLET_ADDRESS;
 const senderWallet = Wallet.fromSeed(senderSecret);
 const recipientWallet = Wallet.fromSeed(recipientSecret); // WE ONLY NEED THE SECRET BECASUE WE HAVE TO SET THE TrustSet, when someone registers, this will then be set.
 
-const amountToSend = '12'; // 12 TCHF
-const xrpAmountForTCHF = '24'; // Assuming 2 XRP for 1 TCHF
-const xrpAmountForTEUR = '24'; // Assuming 2 XRP for 1 TEUR
+const amountToSend = 12; // 12 TCHF
+const xrpAmountForTCHF = amountToSend * 2; // Assuming 2 XRP for 1 TCHF
+const xrpAmountForTEUR =  amountToSend * 2.2; // Assuming 2 XRP for 1 TEUR
 
 (async () => {
   await client.connect();
@@ -57,9 +57,9 @@ const xrpAmountForTEUR = '24'; // Assuming 2 XRP for 1 TEUR
     TakerGets: {
       currency: TCHF_CURRENCY_CODE,
       issuer: TCHF_ISSUER_WALLET_ADDRESS,
-      value: amountToSend
+      value: amountToSend.toString()
     },
-    TakerPays: xrpAmountForTCHF, // Specify the amount of XRP to receive (in drops)
+    TakerPays: xrpAmountForTCHF.toString(), // Specify the amount of XRP to receive (in drops)
     Flags: 0x00080000 // tfImmediateOrCancel
   };
 
@@ -72,11 +72,11 @@ const xrpAmountForTEUR = '24'; // Assuming 2 XRP for 1 TEUR
   const offerCreateXRPtoTEUR: OfferCreate = {
     TransactionType: 'OfferCreate',
     Account: senderAddress,
-    TakerGets: xrpAmountForTEUR, // Specify the amount of XRP to offer (in drops)
+    TakerGets: xrpAmountForTEUR.toString(), // Specify the amount of XRP to offer (in drops)
     TakerPays: {
       currency: TEUR_CURRENCY_CODE,
       issuer: TEUR_ISSUER_WALLET_ADDRESS,
-      value: amountToSend
+      value: amountToSend.toString()
     },
     Flags: 0x00080000 // tfImmediateOrCancel
   };
@@ -92,7 +92,7 @@ const xrpAmountForTEUR = '24'; // Assuming 2 XRP for 1 TEUR
     Account: senderAddress,
     Amount: {
       currency: TEUR_CURRENCY_CODE,
-      value: amountToSend,
+      value: amountToSend.toString(),
       issuer: TEUR_ISSUER_WALLET_ADDRESS
     },
     Destination: recipientAddress
