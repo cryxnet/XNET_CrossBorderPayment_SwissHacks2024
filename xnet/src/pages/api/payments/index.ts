@@ -113,11 +113,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     // Log the result and transaction link
     console.log('TEUR payment:', resultPayment);
-    console.log(`Transaction link: https://testnet.xrpl.org/transactions/${signedPayment.hash}`);
+    console.log(Transaction link: https://testnet.xrpl.org/transactions/${signedPayment.hash});
 
     await client.disconnect();
 
-    res.status(200).json({ message: 'Transaction successful', transactionLink: `https://testnet.xrpl.org/transactions/${signedPayment.hash}` });
+    res.status(200).json({ message: 'Transaction successful', transactionLink: https://testnet.xrpl.org/transactions/${signedPayment.hash} });
   } catch (error) {
     console.error(error);
     await client.disconnect();

@@ -19,7 +19,7 @@ import {
 } from "@mui/material";
 import data from "@/util/mock.json";
 import { FormControl } from "@mui/base";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTypeSelect } from "@react-aria/selection";
 import { CardBody, CardHeader } from "@nextui-org/card";
 const Payment = () => {
@@ -29,6 +29,8 @@ const Payment = () => {
   const [sendAmount, setSendAmount] = useState(null);
   const [recieveAmount, setRecieveAmount] = useState(null);
   const [message, setMessage] = useState("");
+  const [transactionWorked, setTransactionWorked] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const isDisabled = sendAmount == 0 || recieveAmount == 0 || !contact;
 
@@ -55,6 +57,10 @@ const Payment = () => {
     const retrieverSecret = "sEd7pjRtgXyEqRXCVLzPs3wtk4oRCyX";
 
     try {
+      setLoading(true);
+      if (!sendAmount) {
+        throw new Error("sendAmount not defined");
+      }
       const response = await fetch("/api/payments", {
         method: "POST",
         headers: {
@@ -63,19 +69,25 @@ const Payment = () => {
         body: JSON.stringify({
           senderSecret,
           retrieverSecret,
-          amount: "1",
+          amount: (sendAmount as number).toString(),
         }),
       });
 
       const data = await response.json();
       if (response.ok) {
-        setMessage(`Payment successful: Transaction ID ${data.transactionId}`);
+        setMessage(data.transactionLink);
+        setTransactionWorked(true);
+        setLoading(false);
       } else {
         setMessage(`Payment failed: ${data.message}`);
+        setTransactionWorked(false);
+        setLoading(false);
       }
     } catch (error) {
       console.error("Error making payment:", error);
       setMessage("Payment failed due to an error.");
+      setTransactionWorked(false);
+      setLoading(false);
     }
   };
 
@@ -173,10 +185,16 @@ const Payment = () => {
             color={isDisabled ? "default" : "success"}
             disabled={isDisabled}
             onClick={handleSubmit}
+            isLoading={loading}
           >
             Authorize Payment
           </Button>
         </Box>
+        {transactionWorked && (
+          <Link passHref={true} href={message}>
+            Payment successfully completed, click me!
+          </Link>
+        )}
       </CardBody>
     </Card>
   );
