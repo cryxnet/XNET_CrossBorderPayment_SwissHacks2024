@@ -11,8 +11,8 @@ const senderWallet = Wallet.fromSeed(senderSecret);
 const recipientWallet = Wallet.fromSeed(recipientSecret); // WE ONLY NEED THE SECRET BECASUE WE HAVE TO SET THE TrustSet, when someone registers, this will then be set.
 
 const amountToSend = '12'; // 12 TCHF
-const xrpAmountForTCHF = '240'; // Assuming 20 XRP for 1 TCHF
-const xrpAmountForTEUR = '240'; // Assuming 20 XRP for 1 TEUR
+const xrpAmountForTCHF = '24'; // Assuming 2 XRP for 1 TCHF
+const xrpAmountForTEUR = '24'; // Assuming 2 XRP for 1 TEUR
 
 (async () => {
   await client.connect();
