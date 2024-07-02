@@ -22,7 +22,7 @@ import { FormControl } from "@mui/base";
 import { useEffect, useState } from "react";
 import { useTypeSelect } from "@react-aria/selection";
 import { CardBody, CardHeader } from "@nextui-org/card";
-const Payment = () => {
+const Payment = ({setLoadingParent}) => {
   const user = data.user;
 
   const [contact, setContact] = useState(null);
@@ -58,6 +58,7 @@ const Payment = () => {
 
     try {
       setLoading(true);
+      setLoadingParent(true)
       if (!sendAmount) {
         throw new Error("sendAmount not defined");
       }
@@ -82,16 +83,19 @@ const Payment = () => {
         ]);
         setTransactionWorked(true);
         setLoading(false);
+        setLoadingParent(false)
       } else {
         setMessage([`Payment failed: ${data.message}`]);
         setTransactionWorked(false);
         setLoading(false);
+        setLoadingParent(false)
       }
     } catch (error) {
       console.error("Error making payment:", error);
       setMessage(["Payment failed due to an error."]);
       setTransactionWorked(false);
       setLoading(false);
+      setLoadingParent(false)
     }
   };
 
@@ -194,14 +198,6 @@ const Payment = () => {
             Authorize Payment
           </Button>
         </Box>
-        {transactionWorked &&
-          message.map((mess, index) => {
-            return (
-              <Link passHref={true} href={mess}>
-                {`Payment ${index} successfully completed, click me!`}
-              </Link>
-            );
-          })}
       </CardBody>
     </Card>
   );

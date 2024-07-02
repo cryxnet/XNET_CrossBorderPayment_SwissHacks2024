@@ -77,7 +77,7 @@ export default function Contacts() {
                 <p className="text-3xl">Contacts</p>
          
                 <NextButton color="primary" onClick={handleAddContact} variant="bordered" startContent={<UserIcon/>}>
-                    Add user
+                    Add contact
                 </NextButton>
 
             </Box>
