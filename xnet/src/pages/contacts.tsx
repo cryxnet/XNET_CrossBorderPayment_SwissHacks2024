@@ -70,17 +70,16 @@ export default function Contacts() {
     };
 
     return (
-        <div className="w-full h-full flex flex-col p-6">
-            <Box sx={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
+        <div className="w-[calc(100%-32px)] h-[calc(100%-32px)] flex flex-col m-4">
+            <div className="flex justify-between w-full mb-4">
                 <p className="text-3xl">Contacts</p>
          
                 <NextButton color="primary" onClick={handleAddContact} variant="bordered" startContent={<UserIcon/>}>
                     Add contact
                 </NextButton>
 
-            </Box>
-            <br />
-            <Table aria-label="Example static collection table">
+            </div>
+            <Table aria-label="Example static collection table" className="h-[calc(100%-72px)]">
                 <TableHeader>
                     {columns.map(column => (
                         <TableColumn key={column.key}>{column.label}</TableColumn>
