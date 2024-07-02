@@ -53,7 +53,7 @@ export default function Transactions() {
   }, [walletAddress]);
 
   return (
-    <div className="flex m-8 justify-between h-[calc(100vh-128px)]">
+    <div className="flex m-4 justify-between h-[calc(100vh-128px)] w-full">
       <div className="w-4/6 h-full">
         <TransactionTable user={user} />
       </div>
