@@ -109,7 +109,6 @@ const Payment = ({setLoadingParent}) => {
           <Select
             onChange={handleSelect}
             items={user.contacts}
-            label="Reciever"
             placeholder="Select reciever"
             labelPlacement="outside"
             classNames={{
