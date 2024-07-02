@@ -77,7 +77,7 @@ const Navbar = () => {
           }}
         >
           <Typography variant="body1" sx={{ fontWeight: "bold" }}>
-            Stef Johnson
+            John Doe
           </Typography>
           <Avatar src="https://i.pravatar.cc/150?u=a042581f4e29026024d" />
         </Box>
