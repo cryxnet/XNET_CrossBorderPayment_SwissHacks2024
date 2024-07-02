@@ -63,7 +63,7 @@ export default function Transactions() {
           </div>
         <Card className="w-full h-[calc(100%-(60%+2rem))]">
           <CardHeader>
-            {!loading? (
+            {!initialLoading? (
                 <div>Add Contact</div>
                 ) : (
                 <div>
