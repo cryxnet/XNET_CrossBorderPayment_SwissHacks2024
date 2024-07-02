@@ -17,7 +17,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <ThemeProvider theme={theme}>
           <NextUIProvider className="w-screen">
             <Navbar/>
-            <Box className={"h-screen bg-blue-500 overflow-y-scroll"}>
+            <Box className={"h-[calc(100vh-64px)] bg-neutral-100 overflow-y-scroll"}>
               <Component {...pageProps} />
             </Box>
           </NextUIProvider>
