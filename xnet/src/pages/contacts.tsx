@@ -75,7 +75,7 @@ export default function Contacts() {
     return (
         <div className="w-full h-full flex flex-col p-6">
             <Box sx={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
-                <p className="text-3xl">Your Contacts:</p>
+                <p className="text-3xl">Contacts</p>
          
                 <NextButton color="primary" onClick={handleAddContact} variant="bordered" startContent={<UserIcon/>}>
                     Add user
@@ -205,7 +205,7 @@ export default function Contacts() {
                             </ModalHeader>
                             <ModalBody className="flex flex-col items-center justify-center">
                                 <p>Your contact has been added successfully!</p>
-                                <ConfettiExplosion />
+                                <ConfettiExplosion zIndex={50}/>
                             </ModalBody>
                             <ModalFooter>
                                 <NextButton color="primary" variant="light" onPress={handleAddedClose}>
