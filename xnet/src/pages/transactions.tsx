@@ -61,7 +61,13 @@ export default function Transactions() {
           </div>
         <Card className="w-full h-[calc(100%-(60%+2rem))]">
           <CardHeader>
-            <br/>
+            {!loading? (
+                <div>Add Contact</div>
+                ) : (
+                <div>
+                  <br/>
+                </div>
+              )}
           </CardHeader>
           <CardBody className={"flex items-center justify-center h-full w-full border-amber-600"}>
             {loading? (
