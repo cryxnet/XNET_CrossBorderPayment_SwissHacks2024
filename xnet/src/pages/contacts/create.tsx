@@ -3,7 +3,7 @@ import { Box, Button, TextField, MenuItem, Typography } from '@mui/material';
 
 const currencies = [
     { value: 'CAD', label: 'CAD' },
-    { value: 'USD', label: 'USD' },
+    { value: 'CHF', label: 'CHF' },
     { value: 'EUR', label: 'EUR' },
 ];
 
@@ -11,7 +11,7 @@ const Create = () => {
     const [contact, setContact] = useState({
         first_name: '',
         last_name: '',
-        preferred_currency: 'USD',
+        preferred_currency: 'CHF',
     });
 
     const handleChange = (e) => {
