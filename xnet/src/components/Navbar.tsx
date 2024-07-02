@@ -45,7 +45,7 @@ const Navbar = () => {
                 </Box>
 
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: 2 }}>
-                    <Typography variant="body1" sx={{ fontWeight: 'bold' }}>Username</Typography>
+                    <Typography variant="body1" sx={{ fontWeight: 'bold' }}>Stef Johnson</Typography>
                     <Avatar src="https://i.pravatar.cc/150?u=a042581f4e29026024d" />
                 </Box>
             </Toolbar>

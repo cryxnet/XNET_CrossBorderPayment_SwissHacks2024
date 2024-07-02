@@ -7,7 +7,7 @@ import {
     TableRow,
     useDisclosure,
     Button as NextButton,
-    Input
+    Input, Link
 } from "@nextui-org/react";
 import data from "@/util/mock.json";
 import { FiEye } from "react-icons/fi";
@@ -18,13 +18,12 @@ import { AiOutlineEye, AiOutlinePlus, AiOutlineQrcode, AiOutlineLink, AiOutlineC
 import QRCode from "react-qr-code"; // assuming react-qr-code is installed
 import ConfettiExplosion from 'react-confetti-explosion';
 import { UserIcon } from "@/components/icons/UserIcon";
+import {User} from "@nextui-org/user";
 
 export default function Contacts() {
     const contact = data.user;
     const columns = [
-        { key: "pfp", label: "PFP" },
-        { key: "first_name", label: "First Name" },
-        { key: "last_name", label: "Last Name" },
+        { key: "last_name", label: "Name" },
         { key: "preferred_currency", label: "Preferred Currency" },
         { key: "view", label: "View" }
     ];
@@ -75,7 +74,7 @@ export default function Contacts() {
     return (
         <div className="w-full h-full flex flex-col p-6">
             <Box sx={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
-                <p className="text-3xl">Your Contacts:</p>
+                <p className="text-3xl">Contacts</p>
          
                 <NextButton color="primary" onClick={handleAddContact} variant="bordered" startContent={<UserIcon/>}>
                     Add user
@@ -93,10 +92,13 @@ export default function Contacts() {
                     {contact.contacts.map((contact, index) => (
                         <TableRow key={index}>
                             <TableCell>
-                                <Avatar src={contact.profile_picture} sx={{ width: 40, height: 40 }} />
+                                <User
+                                    avatarProps={{radius: "lg", src: contact.profile_picture}}
+                                    description={<Link href={`https://testnet.xrpl.org/accounts/${contact.wallet_address}`} size="sm" isExternal>{contact.wallet_address}</Link>}
+                                    name={contact.first_name + " " + contact.last_name}
+                                >
+                                </User>
                             </TableCell>
-                            <TableCell>{contact.first_name}</TableCell>
-                            <TableCell>{contact.last_name}</TableCell>
                             <TableCell>{contact.preferred_currency}</TableCell>
                             <TableCell>
                                 <IconButton onClick={() => handleView(contact.id)}>
@@ -205,7 +207,7 @@ export default function Contacts() {
                             </ModalHeader>
                             <ModalBody className="flex flex-col items-center justify-center">
                                 <p>Your contact has been added successfully!</p>
-                                <ConfettiExplosion />
+                                <ConfettiExplosion zIndex={50}/>
                             </ModalBody>
                             <ModalFooter>
                                 <NextButton color="primary" variant="light" onPress={handleAddedClose}>
