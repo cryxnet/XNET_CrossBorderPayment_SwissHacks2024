@@ -13,6 +13,7 @@ import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector
 import { StepIconProps } from '@mui/material/StepIcon';
 import { useState, useEffect } from 'react';
 import Typography from '@mui/material/Typography';
+import ConfettiExplosion from "react-confetti-explosion";
 
 const blueGradient = 'linear-gradient( 136deg, rgb(33,150,243) 0%, rgb(30,87,255) 50%, rgb(0,70,150) 100%)';
 
@@ -130,7 +131,7 @@ function ColorlibStepIcon(props: StepIconProps) {
 
 const steps = ['Tokenization', 'Swap', 'Transfer'];
 
-export default function CustomStepper() {
+export default function CustomStepper({loading}) {
     const [activeStep, setActiveStep] = useState(0);
     const [showSuccess, setShowSuccess] = useState(false);
 
@@ -150,12 +151,13 @@ export default function CustomStepper() {
 
     return (
         <div >
-            {showSuccess ? (
+            {!loading ? (
                 <div style={{ textAlign: 'center', animation: `${successAnimation} 1s ease-in-out` }}>
                     <CheckCircleIcon style={{ fontSize: 50, color: 'green' }} />
                     <Typography variant="h5" sx={{ mt: 2 }}>
                         Transaction completed
                     </Typography>
+                    <ConfettiExplosion zIndex={50}/>
                 </div>
             ) : (
                 <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />}>

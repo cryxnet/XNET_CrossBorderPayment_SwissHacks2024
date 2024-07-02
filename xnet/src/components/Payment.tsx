@@ -58,6 +58,7 @@ const Payment = ({setLoadingParent}) => {
 
     try {
       setLoading(true);
+      setLoadingParent(true)
       if (!sendAmount) {
         throw new Error("sendAmount not defined");
       }
@@ -82,16 +83,19 @@ const Payment = ({setLoadingParent}) => {
         ]);
         setTransactionWorked(true);
         setLoading(false);
+        setLoadingParent(false)
       } else {
         setMessage([`Payment failed: ${data.message}`]);
         setTransactionWorked(false);
         setLoading(false);
+        setLoadingParent(false)
       }
     } catch (error) {
       console.error("Error making payment:", error);
       setMessage(["Payment failed due to an error."]);
       setTransactionWorked(false);
       setLoading(false);
+      setLoadingParent(false)
     }
   };
 
@@ -194,14 +198,6 @@ const Payment = ({setLoadingParent}) => {
             Authorize Payment
           </Button>
         </Box>
-        {transactionWorked &&
-          message.map((mess, index) => {
-            return (
-              <Link passHref={true} href={mess}>
-                {`Payment ${index} successfully completed, click me!`}
-              </Link>
-            );
-          })}
       </CardBody>
     </Card>
   );

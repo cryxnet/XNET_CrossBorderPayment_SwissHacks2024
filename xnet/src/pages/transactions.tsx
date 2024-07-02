@@ -13,7 +13,7 @@ export default function Transactions() {
   const user = data.user;
   const [transactions, setTransactions] = useState([]);
   const [userInfo, setUserInfo] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const walletAddress = "rDBg1qLgTFaYQ8R5U9bh8QXLv7ErFgWXz2";
 
   useEffect(() => {
@@ -67,7 +67,7 @@ export default function Transactions() {
             {loading? (
                 <div className={"h-full w-full"}>
 
-                <CustomStepper />
+                <CustomStepper loading={loading} />
 
                 </div>
                 ) : (
