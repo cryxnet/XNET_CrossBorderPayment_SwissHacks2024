@@ -14,11 +14,11 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <ThemeProvider theme={theme}>
-      <NextUIProvider className="w-screen bg-neutral-100">
+      <NextUIProvider className="bg-neutral-100">
         <div className="w-screen">
           <Navbar />
         </div>
-        <div className="h-[calc(100vh-64px)] ">
+        <div className="h-[calc(100vh-64px)]">
           <Component {...pageProps} />
         </div>
       </NextUIProvider>
