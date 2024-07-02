@@ -6,16 +6,18 @@ import {
     TableHeader,
     TableRow,
     useDisclosure,
-    Button as NextButton
+    Button as NextButton,
+    Input
 } from "@nextui-org/react";
 import data from "@/util/mock.json";
 import { FiEye } from "react-icons/fi";
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/modal";
 import { useState } from "react";
-import { Box, IconButton, Avatar, TextField, Button } from "@mui/material";
+import { Box, IconButton, Avatar, Button } from "@mui/material";
 import { AiOutlineEye, AiOutlinePlus, AiOutlineQrcode, AiOutlineLink, AiOutlineCheckCircle } from "react-icons/ai";
 import QRCode from "react-qr-code"; // assuming react-qr-code is installed
 import ConfettiExplosion from 'react-confetti-explosion';
+import { UserIcon } from "@/components/icons/UserIcon";
 
 export default function Contacts() {
     const contact = data.user;
@@ -74,14 +76,11 @@ export default function Contacts() {
         <div className="w-full h-full flex flex-col p-6">
             <Box sx={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
                 <p className="text-3xl">Your Contacts:</p>
-                <NextButton
-                    onClick={handleAddContact}
-                    color="primary"
-                    auto
-                    icon={<AiOutlinePlus />}
-                >
-                    Add Contact
+         
+                <NextButton color="primary" onClick={handleAddContact} variant="bordered" startContent={<UserIcon/>}>
+                    Add user
                 </NextButton>
+
             </Box>
             <br />
             <Table aria-label="Example static collection table">
@@ -137,7 +136,7 @@ export default function Contacts() {
                         <>
                             <ModalHeader className="flex flex-col gap-1">Add New Contact</ModalHeader>
                             <ModalBody>
-                                <TextField
+                                <Input
                                     fullWidth
                                     label="Firstname"
                                     name="firstName"
@@ -145,7 +144,7 @@ export default function Contacts() {
                                     onChange={handleInputChange}
                                     margin="dense"
                                 />
-                                <TextField
+                                <Input
                                     fullWidth
                                     label="Lastname"
                                     name="lastName"
@@ -153,7 +152,7 @@ export default function Contacts() {
                                     onChange={handleInputChange}
                                     margin="dense"
                                 />
-                                <TextField
+                                <Input
                                     fullWidth
                                     label="Phone Number"
                                     name="phoneNumber"
@@ -161,7 +160,7 @@ export default function Contacts() {
                                     onChange={handleInputChange}
                                     margin="dense"
                                 />
-                                <TextField
+                                <Input
                                     fullWidth
                                     label="Contact Code"
                                     name="contactCode"
