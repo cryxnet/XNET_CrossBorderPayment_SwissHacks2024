@@ -10,12 +10,10 @@ import {
     Input, Link
 } from "@nextui-org/react";
 import data from "@/util/mock.json";
-import { FiEye } from "react-icons/fi";
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/modal";
 import { useState } from "react";
 import { Box, IconButton, Avatar, Button } from "@mui/material";
 import { AiOutlineEye, AiOutlinePlus, AiOutlineQrcode, AiOutlineLink, AiOutlineCheckCircle } from "react-icons/ai";
-import QRCode from "react-qr-code"; // assuming react-qr-code is installed
 import ConfettiExplosion from 'react-confetti-explosion';
 import { UserIcon } from "@/components/icons/UserIcon";
 import {User} from "@nextui-org/user";

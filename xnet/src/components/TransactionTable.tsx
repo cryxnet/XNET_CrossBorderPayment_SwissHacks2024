@@ -1,5 +1,4 @@
-import { List, ListItem } from "@mui/material"
-import {Chip, Divider, Link, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow} from "@nextui-org/react"
+import {Chip, Link, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow} from "@nextui-org/react"
 import { useEffect, useState } from "react";
 import {User} from "@nextui-org/user";
 
