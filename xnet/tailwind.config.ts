@@ -11,6 +11,10 @@ const config: Config = {
   theme: {
     extend: {
     },
+    fontFamily: {
+      sans: ['lato', 'sans-serif'],
+      serif: ['lato', 'serif'],
+    }
   },
   darkMode: "class",
   plugins: [nextui()],
