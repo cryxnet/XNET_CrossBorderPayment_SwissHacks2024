@@ -38,7 +38,7 @@ const TransactionTable = (data) => {
     }, [data.user.transactions])
 
     return (
-        <Table fullWidth className="h-full">
+        <Table isHeaderSticky={true} fullWidth className="h-full">
             <TableHeader>
                 <TableColumn>Contact</TableColumn>
                 <TableColumn>Date</TableColumn>
