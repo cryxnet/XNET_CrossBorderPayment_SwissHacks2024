@@ -22,7 +22,7 @@ import { FormControl } from "@mui/base";
 import { useEffect, useState } from "react";
 import { useTypeSelect } from "@react-aria/selection";
 import { CardBody, CardHeader } from "@nextui-org/card";
-const Payment = () => {
+const Payment = ({setLoadingParent}) => {
   const user = data.user;
 
   const [contact, setContact] = useState(null);
