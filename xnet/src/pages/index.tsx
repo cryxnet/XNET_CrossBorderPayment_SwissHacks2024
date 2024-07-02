@@ -3,6 +3,8 @@ import data from '@/util/mock.json';
 import { Button, Card, CardBody, CardHeader } from "@nextui-org/react";
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import TransactionTable from "@/components/TransactionTable";
+import PaidIcon from '@mui/icons-material/Paid';
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 
 
 export default function Home() {
@@ -45,7 +47,7 @@ export default function Home() {
                                 <Box className={"flex w-full justify-between"}>
                                     <Typography variant="body2">Total fees paid</Typography>
                                     <IconButton>
-                                        <AccountBalanceWalletIcon />
+                                        <PaidIcon />
                                     </IconButton>
                                 </Box>
                                 <Typography variant="h5" sx={{ fontWeight: 'bold' }}>{user.fees_paid} {user.preferred_currency}</Typography>
@@ -58,7 +60,7 @@ export default function Home() {
                                 <Box className={"flex w-full justify-between"}>
                                     <Typography variant="body2">Transactions</Typography>
                                     <IconButton>
-                                        <AccountBalanceWalletIcon />
+                                        <ReceiptLongIcon />
                                     </IconButton>
                                 </Box>
                                 <Typography variant="h5" sx={{ fontWeight: 'bold' }}>{user.transactions.length}</Typography>
