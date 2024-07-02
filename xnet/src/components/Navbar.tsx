@@ -27,7 +27,6 @@ const Navbar = () => {
         backgroundColor: "#0d1117",
         color: "white",
         boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
-        width: "100%",
       }}
     >
       <Toolbar
@@ -38,13 +37,11 @@ const Navbar = () => {
           padding: "0 2rem",
         }}
       >
-        <Box sx={{ display: "flex", alignItems: "center" }}>
+        <div className="flex items-center">
           <Image src="/white_logo.png" alt="logo" width={100} height={50} />
-        </Box>
+        </div>
 
-        <Box
-          sx={{ flex: 1, display: "flex", justifyContent: "center", gap: 3 }}
-        >
+        <div className="flex flex-1 justify-center gap-3">
           {navbarItems.map((item) => (
             <Button
               key={item.text}
@@ -66,21 +63,14 @@ const Navbar = () => {
               {item.text}
             </Button>
           ))}
-        </Box>
+        </div>
 
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "flex-end",
-            alignItems: "center",
-            gap: 2,
-          }}
-        >
+        <div className="flex justify-end items-center gap-2">
           <Typography variant="body1" sx={{ fontWeight: "bold" }}>
             John Doe
           </Typography>
           <Avatar src="https://i.pravatar.cc/150?u=a042581f4e29026024d" />
-        </Box>
+        </div>
       </Toolbar>
     </AppBar>
   );

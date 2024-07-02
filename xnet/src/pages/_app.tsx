@@ -15,10 +15,8 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={theme}>
       <NextUIProvider className="bg-neutral-100">
-        <div className="w-screen">
-          <Navbar />
-        </div>
-        <div className="h-[calc(100vh-64px)]">
+        <Navbar />
+        <div className="h-[calc(100vh-64px)] flex justify-center items-center w-screen">
           <Component {...pageProps} />
         </div>
       </NextUIProvider>

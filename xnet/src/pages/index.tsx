@@ -22,15 +22,15 @@ export default function Home() {
   };
 
   return (
-    <div className="h-[calc(100%-32px)] w-[calc(100vw-32px)] m-4">
-      <div className="h-11 mb-4 w-4/5">
+    <div className="h-[calc(100%-2rem)] w-[calc(100%-2rem)] m-4">
+      <div className="h-11 mb-4 w-[calc(80%-2rem)]">
         <Typography variant="h4">
           Hello, {user.first_name} {user.last_name}
         </Typography>
       </div>
-      <div className="w-full h-[calc(100%-68px)]">
-        <div className="w-[calc(100vw-2rem)] flex h-1/4">
-          <Card className="w-1/3 mb-2 h-[calc(100%-1rem)]">
+      <div className="w-full h-[calc(100%-64px)]">
+        <div className="w-full flex h-1/4 mb-2">
+          <Card className="w-1/3 h-[calc(100%-0.5rem)]">
             <CardBody className="flex w-full justify-between">
               <div className="flex w-full justify-between">
                 <Typography variant="body2">Balance</Typography>
@@ -43,7 +43,7 @@ export default function Home() {
               </Typography>
             </CardBody>
           </Card>
-          <Card className="mr-4 ml-4 w-1/3 h-[calc(100%-1rem)]">
+          <Card className="mr-4 ml-4 w-1/3 h-[calc(100%-0.5rem)]">
             <CardBody className="flex flex-col justify-between">
               <div className="flex w-full justify-between">
                 <Typography variant="body2">Total fees paid</Typography>
@@ -56,7 +56,7 @@ export default function Home() {
               </Typography>
             </CardBody>
           </Card>
-          <Card className=" w-1/3 h-[calc(100%-1rem)]">
+          <Card className=" w-1/3 h-[calc(100%-0.5rem)]">
             <CardBody className="flex flex-col justify-between">
               <div className={"flex w-full justify-between"}>
                 <Typography variant="body2">Transactions</Typography>
