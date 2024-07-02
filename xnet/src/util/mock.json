@@ -1,8 +1,8 @@
 {
   "user": {
     "id": "1",
-    "first_name": "Alice",
-    "last_name": "Smith",
+    "first_name": "John",
+    "last_name": "Doe",
     "profile_picture": "https://i.pravatar.cc/150?u=a042581f4e29026024d",
     "balance": "1200.50",
     "fees_paid": "35.00",
