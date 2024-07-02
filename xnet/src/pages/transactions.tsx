@@ -14,6 +14,8 @@ export default function Transactions() {
   const [transactions, setTransactions] = useState([]);
   const [userInfo, setUserInfo] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [initialLoading, setInitialLoading] = useState(false);
+
   const walletAddress = "rDBg1qLgTFaYQ8R5U9bh8QXLv7ErFgWXz2";
 
   useEffect(() => {
@@ -57,7 +59,7 @@ export default function Transactions() {
       </div>
       <div className="w-[calc(100%-(66%+4rem))]">
           <div className=" w-full h-3/5 mb-8">
-            <Payment setLoadingParent={setLoading} />
+            <Payment initialLoading={setInitialLoading} setLoadingParent={setLoading} />
           </div>
         <Card className="w-full h-[calc(100%-(60%+2rem))]">
           <CardHeader>
@@ -70,7 +72,7 @@ export default function Transactions() {
               )}
           </CardHeader>
           <CardBody className={"flex items-center justify-center h-full w-full border-amber-600"}>
-            {loading? (
+            {initialLoading? (
                 <div className={"h-full w-full"}>
 
                 <CustomStepper loading={loading} />

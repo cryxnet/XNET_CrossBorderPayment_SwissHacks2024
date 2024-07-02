@@ -22,7 +22,7 @@ import { FormControl } from "@mui/base";
 import { useEffect, useState } from "react";
 import { useTypeSelect } from "@react-aria/selection";
 import { CardBody, CardHeader } from "@nextui-org/card";
-const Payment = ({setLoadingParent}) => {
+const Payment = ({setLoadingParent, initialLoading}) => {
   const user = data.user;
 
   const [contact, setContact] = useState(null);
@@ -59,6 +59,7 @@ const Payment = ({setLoadingParent}) => {
     try {
       setLoading(true);
       setLoadingParent(true)
+      initialLoading(true)
       if (!sendAmount) {
         throw new Error("sendAmount not defined");
       }
